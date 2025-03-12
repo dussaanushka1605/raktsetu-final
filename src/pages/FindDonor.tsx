@@ -1,12 +1,13 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import DonorSearch, { SearchFilters } from "@/components/DonorSearch";
 import DonorCard, { Donor } from "@/components/DonorCard";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, LogIn, Hospital } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
+import Button from "@/components/Button";
 
 // Mock donor data
 const mockDonors: Donor[] = [
@@ -78,13 +79,10 @@ const FindDonor = () => {
   const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
   
-  useEffect(() => {
-    // Redirect if not authenticated or not a hospital
-    if (!isAuthenticated || role !== 'hospital') {
-      navigate('/login');
-    }
-  }, [isAuthenticated, role, navigate]);
-  
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
   const handleSearch = (filters: SearchFilters) => {
     console.log("Search filters:", filters);
     setHasSearched(true);
@@ -117,11 +115,6 @@ const FindDonor = () => {
     setSearchResults(results);
   };
 
-  // If not authorized, this component will redirect in the useEffect
-  if (!isAuthenticated || role !== 'hospital') {
-    return null;
-  }
-
   return (
     <Layout>
       <div className="min-h-screen bg-background pt-16">
@@ -133,38 +126,86 @@ const FindDonor = () => {
             </p>
           </div>
           
-          <DonorSearch onSearch={handleSearch} className="mb-12" />
-          
-          {hasSearched && (
-            <div className="animate-reveal">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">
-                  {searchResults.length} {searchResults.length === 1 ? "Donor" : "Donors"} Found
-                </h2>
+          {!isAuthenticated ? (
+            <div className="glass-card p-8 text-center max-w-lg mx-auto animate-reveal">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blood/10 text-blood mb-6">
+                <Hospital size={32} />
               </div>
+              <h3 className="text-2xl font-bold mb-2">Hospital Login Required</h3>
+              <p className="text-muted-foreground mb-6">
+                To search for blood donors, please login to your hospital account or register if you don't have one yet.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  variant="primary"
+                  onClick={handleLoginClick}
+                  className="w-full sm:w-auto"
+                >
+                  <LogIn size={18} className="mr-2" />
+                  Login to Continue
+                </Button>
+                <Button 
+                  variant="secondary"
+                  onClick={() => navigate('/register')}
+                  className="w-full sm:w-auto"
+                >
+                  Create Hospital Account
+                </Button>
+              </div>
+            </div>
+          ) : role !== 'hospital' ? (
+            <div className="glass-card p-8 text-center max-w-lg mx-auto animate-reveal">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-50 text-yellow-500 mb-6">
+                <AlertCircle size={32} />
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Hospital Access Only</h3>
+              <p className="text-muted-foreground mb-6">
+                This feature is available only for hospital accounts. Please login with a hospital account to search for blood donors.
+              </p>
+              <Button 
+                variant="primary"
+                onClick={handleLoginClick}
+                className="w-full sm:w-auto"
+              >
+                Switch to Hospital Account
+              </Button>
+            </div>
+          ) : (
+            <>
+              <DonorSearch onSearch={handleSearch} className="mb-12" />
               
-              {searchResults.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {searchResults.map((donor, index) => (
-                    <DonorCard 
-                      key={donor.id} 
-                      donor={donor} 
-                      className={cn("delay-[100ms]", index % 3 === 1 ? "delay-[200ms]" : index % 3 === 2 ? "delay-[300ms]" : "")}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="glass-card p-8 text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-50 text-yellow-500 mb-4">
-                    <AlertCircle size={32} />
+              {hasSearched && (
+                <div className="animate-reveal">
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-semibold">
+                      {searchResults.length} {searchResults.length === 1 ? "Donor" : "Donors"} Found
+                    </h2>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">No Donors Found</h3>
-                  <p className="text-muted-foreground max-w-lg mx-auto">
-                    We couldn't find any donors matching your search criteria. Please try broadening your search by adjusting the filters, or check back later.
-                  </p>
+                  
+                  {searchResults.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {searchResults.map((donor, index) => (
+                        <DonorCard 
+                          key={donor.id} 
+                          donor={donor} 
+                          className={cn("delay-[100ms]", index % 3 === 1 ? "delay-[200ms]" : index % 3 === 2 ? "delay-[300ms]" : "")}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="glass-card p-8 text-center">
+                      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-50 text-yellow-500 mb-4">
+                        <AlertCircle size={32} />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2">No Donors Found</h3>
+                      <p className="text-muted-foreground max-w-lg mx-auto">
+                        We couldn't find any donors matching your search criteria. Please try broadening your search by adjusting the filters, or check back later.
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
+            </>
           )}
         </div>
       </div>

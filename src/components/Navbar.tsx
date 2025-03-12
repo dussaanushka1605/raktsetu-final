@@ -124,24 +124,7 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-            ) : (
-              <div className="flex space-x-4">
-                <Button 
-                  variant="secondary" 
-                  size="sm"
-                  onClick={() => navigate('/login')}
-                >
-                  Login
-                </Button>
-                <Button 
-                  variant="primary" 
-                  size="sm"
-                  onClick={() => navigate('/register')}
-                >
-                  Register
-                </Button>
-              </div>
-            )}
+            ) : null}
             
             {role === "hospital" && (
               <Button 
@@ -211,24 +194,7 @@ const Navbar = () => {
                   Sign out
                 </button>
               </>
-            ) : (
-              <div className="flex flex-col space-y-2 mt-4">
-                <Button 
-                  variant="secondary"
-                  className="w-full"
-                  onClick={() => navigate('/login')}
-                >
-                  Login
-                </Button>
-                <Button 
-                  variant="primary"
-                  className="w-full"
-                  onClick={() => navigate('/register')}
-                >
-                  Register
-                </Button>
-              </div>
-            )}
+            ) : null}
             
             {role === "hospital" && (
               <Button 
