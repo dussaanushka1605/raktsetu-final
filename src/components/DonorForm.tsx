@@ -31,7 +31,7 @@ const DonorForm = ({ className }: DonorFormProps) => {
     hasConsented: false
   });
   
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -51,7 +51,7 @@ const DonorForm = ({ className }: DonorFormProps) => {
   };
   
   const validateForm = () => {
-    const newErrors: Partial<FormData> = {};
+    const newErrors: Partial<Record<keyof FormData, string>> = {};
     
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
