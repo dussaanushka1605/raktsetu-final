@@ -1,10 +1,12 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import DonorSearch, { SearchFilters } from "@/components/DonorSearch";
 import DonorCard, { Donor } from "@/components/DonorCard";
 import { AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Mock donor data
 const mockDonors: Donor[] = [
@@ -73,6 +75,15 @@ const mockDonors: Donor[] = [
 const FindDonor = () => {
   const [searchResults, setSearchResults] = useState<Donor[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const { isAuthenticated, role } = useAuth();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Redirect if not authenticated or not a hospital
+    if (!isAuthenticated || role !== 'hospital') {
+      navigate('/login');
+    }
+  }, [isAuthenticated, role, navigate]);
   
   const handleSearch = (filters: SearchFilters) => {
     console.log("Search filters:", filters);
@@ -105,6 +116,11 @@ const FindDonor = () => {
     
     setSearchResults(results);
   };
+
+  // If not authorized, this component will redirect in the useEffect
+  if (!isAuthenticated || role !== 'hospital') {
+    return null;
+  }
 
   return (
     <Layout>
