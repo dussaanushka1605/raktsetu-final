@@ -131,9 +131,9 @@ const FindDonor = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blood/10 text-blood mb-6">
                 <Hospital size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Hospital Login Required</h3>
+              <h3 className="text-2xl font-bold mb-2">Login</h3>
               <p className="text-muted-foreground mb-6">
-                To search for blood donors, please login to your hospital account or register if you don't have one yet.
+                To search for blood donors, please log in to your hospital account.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
@@ -142,7 +142,7 @@ const FindDonor = () => {
                   className="w-full sm:w-auto"
                 >
                   <LogIn size={18} className="mr-2" />
-                  Login to Continue
+                  Login
                 </Button>
                 <Button 
                   variant="secondary"
@@ -152,6 +152,9 @@ const FindDonor = () => {
                   Create Hospital Account
                 </Button>
               </div>
+              <p className="mt-4 text-sm text-muted-foreground">
+                First time here? Create a hospital account to access our donor database.
+              </p>
             </div>
           ) : role !== 'hospital' ? (
             <div className="glass-card p-8 text-center max-w-lg mx-auto animate-reveal">

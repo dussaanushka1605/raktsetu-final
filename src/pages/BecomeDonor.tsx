@@ -43,9 +43,9 @@ const BecomeDonor = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blood/10 text-blood mb-6">
                 <LogIn size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Login Required</h3>
+              <h3 className="text-2xl font-bold mb-2">Login</h3>
               <p className="text-muted-foreground mb-6">
-                To register as a blood donor, you need to login or create an account first.
+                To register as a blood donor, please log in to your account.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
@@ -54,7 +54,7 @@ const BecomeDonor = () => {
                   className="w-full sm:w-auto"
                 >
                   <LogIn size={18} className="mr-2" />
-                  Login to Continue
+                  Login
                 </Button>
                 <Button 
                   variant="secondary"
@@ -64,6 +64,9 @@ const BecomeDonor = () => {
                   Create an Account
                 </Button>
               </div>
+              <p className="mt-4 text-sm text-muted-foreground">
+                First time here? Create an account to join our donor community.
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
