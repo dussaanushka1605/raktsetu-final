@@ -38,6 +38,10 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen);
+  };
+
   return (
     <nav 
       className={cn(
@@ -78,6 +82,7 @@ const Navbar = () => {
             {isAuthenticated && (
               <UserMenu 
                 isOpen={isUserMenuOpen}
+                onToggle={toggleUserMenu}
                 onLogout={handleLogout}
               />
             )}

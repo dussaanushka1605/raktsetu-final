@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import Button from "../Button";
@@ -7,10 +8,11 @@ import { getUserNavigation } from "./navigation-utils";
 
 interface UserMenuProps {
   isOpen: boolean;
+  onToggle: () => void;
   onLogout: () => void;
 }
 
-export const UserMenu = ({ isOpen, onLogout }: UserMenuProps) => {
+export const UserMenu = ({ isOpen, onToggle, onLogout }: UserMenuProps) => {
   const { user, role } = useAuth();
   const userNavigation = getUserNavigation(role);
 
@@ -19,7 +21,7 @@ export const UserMenu = ({ isOpen, onLogout }: UserMenuProps) => {
       <Button 
         variant="secondary"
         size="sm"
-        onClick={() => setIsUserMenuOpen(!isOpen)}
+        onClick={onToggle}
         className="flex items-center"
       >
         <span className="mr-2">{user?.name || "User"}</span>

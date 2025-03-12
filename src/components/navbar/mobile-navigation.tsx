@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { LogOut } from "lucide-react";
 import Button from "../Button";
@@ -13,6 +13,7 @@ interface MobileNavigationProps {
 
 export const MobileNavigation = ({ isMenuOpen, onLogout }: MobileNavigationProps) => {
   const { isAuthenticated, role } = useAuth();
+  const navigate = useNavigate();
   const navigation = getMainNavigation(role);
   const userNavigation = getUserNavigation(role);
 
