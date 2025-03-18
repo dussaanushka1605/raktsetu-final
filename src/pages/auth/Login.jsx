@@ -1,6 +1,6 @@
 
-import { useState, useEffect } from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Hospital, Droplet } from 'lucide-react';
 import Layout from '@/components/Layout';
 import Button from '@/components/Button';
@@ -13,7 +13,6 @@ const Login = () => {
   const [role, setRole] = useState('donor');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -38,20 +37,11 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       
-      // If login fails for a donor, suggest registration
-      if (role === 'donor') {
-        toast({
-          title: 'Login failed',
-          description: 'If you haven\'t registered as a donor yet, please register first.',
-          variant: 'destructive',
-        });
-      } else {
-        toast({
-          title: 'Login failed',
-          description: 'Please check your credentials and try again.',
-          variant: 'destructive',
-        });
-      }
+      toast({
+        title: 'Login failed',
+        description: 'Please check your credentials and try again.',
+        variant: 'destructive',
+      });
     } finally {
       setIsLoading(false);
     }

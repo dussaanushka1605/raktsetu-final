@@ -5,7 +5,6 @@ import DonorForm from "@/components/DonorForm";
 import { ListChecks, LogIn } from "lucide-react";
 import Button from "@/components/Button";
 import { useAuth } from "@/contexts/AuthContext";
-import { toast } from "@/hooks/use-toast";
 
 const eligibilityCriteria = [
   "Age between 18 and 65 years",
