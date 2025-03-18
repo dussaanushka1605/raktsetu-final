@@ -27,50 +27,7 @@ const ValueCard = ({ icon, title, description, delay = 0 }: ValueCardProps) => {
   );
 };
 
-interface FAQProps {
-  question: string;
-  answer: string;
-  delay?: number;
-}
-
-const FAQ = ({ question, answer, delay = 0 }: FAQProps) => {
-  return (
-    <div 
-      className={cn(
-        "border-b border-border last:border-0 py-6 animate-reveal",
-        delay > 0 ? `[animation-delay:${delay}ms]` : ""
-      )}
-    >
-      <h3 className="text-lg font-semibold mb-2">{question}</h3>
-      <p className="text-muted-foreground">{answer}</p>
-    </div>
-  );
-};
-
 const About = () => {
-  const faqs = [
-    {
-      question: "How does RaktSetu work?",
-      answer: "RaktSetu connects blood donors with recipients by allowing users to search for donors based on blood type, location, and availability. After finding a suitable donor, users can contact them directly through the platform."
-    },
-    {
-      question: "Is my information secure on RaktSetu?",
-      answer: "Yes, we take data privacy seriously. Your information is encrypted and stored securely. Only verified users can access contact information, and you can control who sees your details."
-    },
-    {
-      question: "How can I verify my donor account?",
-      answer: "You can verify your account by uploading a medical document confirming your blood type or by linking your profile to a recognized blood bank or hospital where you've donated before."
-    },
-    {
-      question: "How often can I donate blood?",
-      answer: "Generally, you can donate whole blood every 3 months (or 12 weeks). This period allows your body to replenish the donated blood. For specific components like platelets, you may be able to donate more frequently."
-    },
-    {
-      question: "Can I specify when I'm available to donate?",
-      answer: "Yes, as a registered donor, you can update your availability status to indicate when you're ready to donate. This helps users search for donors who are immediately available."
-    }
-  ];
-
   return (
     <Layout>
       <div className="min-h-screen bg-background pt-16">
@@ -148,29 +105,6 @@ const About = () => {
                   />
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* FAQ Section */}
-        <section className="py-16 md:py-24">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-12 animate-reveal">
-              <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-              <p className="text-muted-foreground">
-                Find answers to the most common questions about RaktSetu and blood donation.
-              </p>
-            </div>
-            
-            <div className="glass-card p-6">
-              {faqs.map((faq, index) => (
-                <FAQ 
-                  key={index}
-                  question={faq.question}
-                  answer={faq.answer}
-                  delay={index * 200}
-                />
-              ))}
             </div>
           </div>
         </section>

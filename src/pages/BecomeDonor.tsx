@@ -5,6 +5,7 @@ import DonorForm from "@/components/DonorForm";
 import { ListChecks, LogIn } from "lucide-react";
 import Button from "@/components/Button";
 import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "@/hooks/use-toast";
 
 const eligibilityCriteria = [
   "Age between 18 and 65 years",
@@ -20,11 +21,16 @@ const eligibilityCriteria = [
 ];
 
 const BecomeDonor = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate('/login');
+    toast({
+      title: "Registration Required",
+      description: "You must register as a donor before logging in.",
+      variant: "destructive",
+    });
+    navigate('/register');
   };
 
   return (
@@ -43,13 +49,13 @@ const BecomeDonor = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blood/10 text-blood mb-6">
                 <LogIn size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Login</h3>
+              <h3 className="text-2xl font-bold mb-2">Register as a Donor</h3>
               <p className="text-muted-foreground mb-6">
-                To register as a blood donor, please log in to your account.
+                To become a blood donor, you must first create an account.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  variant="primary"
+                  variant="secondary"
                   onClick={handleLoginClick}
                   className="w-full sm:w-auto"
                 >
@@ -57,7 +63,7 @@ const BecomeDonor = () => {
                   Login
                 </Button>
                 <Button 
-                  variant="secondary"
+                  variant="primary"
                   onClick={() => navigate('/register')}
                   className="w-full sm:w-auto"
                 >
@@ -65,7 +71,7 @@ const BecomeDonor = () => {
                 </Button>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                First time here? Create an account to join our donor community.
+                Registration is required before you can log in as a donor.
               </p>
             </div>
           ) : (
@@ -100,11 +106,6 @@ const BecomeDonor = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-6 bg-blood/5 rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground">
-                    <strong className="text-blood">Note:</strong> These criteria are general guidelines. The final eligibility will be determined at the time of donation based on a screening process conducted by medical professionals.
-                  </p>
-                </div>
               </div>
             </div>
           )}

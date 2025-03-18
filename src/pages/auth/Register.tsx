@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Hospital, Droplet, Check } from 'lucide-react';
@@ -68,11 +67,12 @@ const Register = () => {
         description: `Your ${role} account has been created successfully.`,
       });
       
-      // Redirect based on role
+      // Redirect based on role with state for donor
       if (role === 'hospital') {
         navigate('/hospital/dashboard');
       } else {
-        navigate('/donor/dashboard');
+        // For donors, use login as intermediate step with fromRegister state
+        navigate('/login', { state: { fromRegister: true }});
       }
     } catch (error) {
       console.error(error);

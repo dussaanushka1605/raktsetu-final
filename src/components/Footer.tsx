@@ -1,12 +1,12 @@
 
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import { Facebook, Instagram, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="bg-white border-t">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="space-y-4">
             <Link 
               to="/"
@@ -75,53 +75,13 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Information</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-blood transition-colors">
-                  Blood Donation FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-blood transition-colors">
-                  Donor Eligibility
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-blood transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-blood transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <ul className="space-y-3">
-              <li className="flex">
-                <MapPin size={20} className="mr-2 flex-shrink-0 text-blood" />
-                <span className="text-muted-foreground">
-                  123 Blood Bank Street, Medical District, City, Country
-                </span>
-              </li>
-              <li className="flex">
-                <Phone size={20} className="mr-2 flex-shrink-0 text-blood" />
-                <a href="tel:+1234567890" className="text-muted-foreground hover:text-blood transition-colors">
-                  +123 456 7890
-                </a>
-              </li>
-              <li className="flex">
-                <Mail size={20} className="mr-2 flex-shrink-0 text-blood" />
-                <a href="mailto:contact@raktsetu.com" className="text-muted-foreground hover:text-blood transition-colors">
-                  contact@raktsetu.com
-                </a>
-              </li>
-            </ul>
+            <p className="text-muted-foreground">
+              For any queries or emergency needs, please contact us at: 
+              <a href="mailto:contact@raktsetu.com" className="text-blood hover:underline ml-1">
+                contact@raktsetu.com
+              </a>
+            </p>
           </div>
         </div>
         

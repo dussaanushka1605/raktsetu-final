@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Hospital, Droplet } from 'lucide-react';
 import Layout from '@/components/Layout';
 import Button from '@/components/Button';
@@ -14,10 +14,35 @@ const Login = () => {
   const [role, setRole] = useState<UserRole>('donor');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
+
+  useEffect(() => {
+    // Check if user is attempting to login as donor without registering
+    if (role === 'donor' && location.state?.fromRegister !== true) {
+      toast({
+        title: "Registration Required",
+        description: "You must register as a donor before logging in.",
+        variant: "destructive",
+      });
+      navigate('/register');
+    }
+  }, [role, location.state, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Prevent donor login without registration
+    if (role === 'donor' && location.state?.fromRegister !== true) {
+      toast({
+        title: "Registration Required",
+        description: "You must register as a donor before logging in.",
+        variant: "destructive",
+      });
+      navigate('/register');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -45,6 +70,20 @@ const Login = () => {
     }
   };
 
+  // Prevent donor login without registration
+  const handleDonorSelection = () => {
+    if (location.state?.fromRegister !== true) {
+      toast({
+        title: "Registration Required",
+        description: "You must register as a donor before logging in.",
+        variant: "destructive",
+      });
+      navigate('/register');
+    } else {
+      setRole('donor');
+    }
+  };
+
   return (
     <Layout>
       <div className="min-h-screen bg-background pt-16">
@@ -58,7 +97,7 @@ const Login = () => {
             <div className="flex justify-center mb-6 space-x-4">
               <button
                 type="button"
-                onClick={() => setRole('donor')}
+                onClick={handleDonorSelection}
                 className={`flex flex-col items-center justify-center p-4 rounded-lg transition-all ${
                   role === 'donor' ? 'bg-blood/10 border border-blood' : 'bg-secondary hover:bg-blood/5'
                 }`}
