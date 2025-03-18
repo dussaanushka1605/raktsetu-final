@@ -37,16 +37,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string, role: UserRole) => {
     setIsLoading(true);
     try {
-      // This is a mock login - will be replaced with actual auth
-      const mockUser: User = {
-        id: '123456',
-        email,
-        name: email.split('@')[0],
-        role
-      };
+      // Check if a user with this email exists in localStorage (for demo purposes)
+      const allUsers = Object.keys(localStorage)
+        .filter(key => key.startsWith('registered_'))
+        .map(key => JSON.parse(localStorage.getItem(key) || '{}'));
       
-      setUser(mockUser);
-      localStorage.setItem('user', JSON.stringify(mockUser));
+      const existingUser = allUsers.find(u => u.email === email);
+      
+      if (existingUser) {
+        // If user exists, log them in with their saved role
+        const mockUser: User = {
+          id: existingUser.id,
+          email: existingUser.email,
+          name: existingUser.name,
+          role: existingUser.role
+        };
+        
+        setUser(mockUser);
+        localStorage.setItem('user', JSON.stringify(mockUser));
+      } else {
+        // If no user exists, create a mock user with the provided role
+        const mockUser: User = {
+          id: '123456',
+          email,
+          name: email.split('@')[0],
+          role
+        };
+        
+        setUser(mockUser);
+        localStorage.setItem('user', JSON.stringify(mockUser));
+      }
     } catch (error) {
       console.error('Login failed:', error);
       throw error;
@@ -58,14 +78,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const register = async (email: string, password: string, name: string, role: UserRole) => {
     setIsLoading(true);
     try {
-      // This is a mock registration - will be replaced with actual auth
+      // Generate a unique ID for the user
+      const userId = Math.random().toString(36).substr(2, 9);
+      
+      // Create the user object
       const mockUser: User = {
-        id: Math.random().toString(36).substr(2, 9),
+        id: userId,
         email,
         name,
         role
       };
       
+      // Store the registered user in localStorage with a unique key
+      localStorage.setItem(`registered_${email}`, JSON.stringify(mockUser));
+      
+      // Set the current user and log them in
       setUser(mockUser);
       localStorage.setItem('user', JSON.stringify(mockUser));
     } catch (error) {
