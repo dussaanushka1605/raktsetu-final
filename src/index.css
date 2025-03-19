@@ -36,6 +36,10 @@
   .animate-reveal {
     @apply opacity-0 animate-[reveal_0.5s_ease_forwards];
   }
+
+  .text-gradient {
+    @apply bg-gradient-to-br from-blood to-blood/70 bg-clip-text text-transparent dark:from-white dark:to-white/80;
+  }
 }
 
 @keyframes reveal {
@@ -48,3 +52,12 @@
     transform: translateY(0);
   }
 }
+
+.dark .hero-section {
+  @apply bg-gray-900;
+}
+
+.dark .section-bg {
+  @apply bg-gray-900;
+}
+

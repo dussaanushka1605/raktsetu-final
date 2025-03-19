@@ -5,7 +5,7 @@ import Button from "./Button";
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-white pt-16 md:pt-24">
+    <section className="relative overflow-hidden bg-white dark:bg-gray-900 pt-16 md:pt-24 hero-section">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-0 right-0 -z-10 opacity-10 blur-3xl">
@@ -35,14 +35,14 @@ const Hero = () => {
         <div className="py-20 md:py-28">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-center">
             <div className="animate-reveal">
-              <div className="rounded-full inline-flex items-center px-3 py-1 text-sm font-medium bg-blood/5 text-blood mb-6">
+              <div className="rounded-full inline-flex items-center px-3 py-1 text-sm font-medium bg-blood/5 text-blood mb-6 dark:bg-blood/10">
                 <span className="flex h-2 w-2 rounded-full bg-blood mr-2"></span>
                 Save Lives. Donate Blood.
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance dark:text-white">
                 Bridging Gaps, <span className="text-gradient">Saving Lives</span>
               </h1>
-              <p className="text-lg text-muted-foreground mb-8 max-w-lg text-balance leading-relaxed">
+              <p className="text-lg text-muted-foreground dark:text-gray-300 mb-8 max-w-lg text-balance leading-relaxed">
                 Connect with blood donors and recipients seamlessly through RaktSetu's platform. Every donation is an opportunity to save a life.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -52,7 +52,7 @@ const Hero = () => {
                   </Button>
                 </Link>
                 <Link to="/become-donor">
-                  <Button size="lg" variant="secondary" className="font-medium">
+                  <Button size="lg" variant="secondary" className="font-medium dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
                     Become a Donor
                   </Button>
                 </Link>
@@ -61,7 +61,7 @@ const Hero = () => {
             
             <div className="relative animate-reveal">
               <div className="relative overflow-hidden rounded-2xl shadow-glass-lg">
-                <div className="absolute inset-0 bg-gradient-to-br from-blood/20 to-blood/10 z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-blood/20 to-blood/10 z-10 dark:from-blood/40 dark:to-blood/20"></div>
                 <img 
                   src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
                   alt="Blood donation" 
