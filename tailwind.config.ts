@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -150,4 +151,26 @@ export default {
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
+	safelist: [
+		{
+			pattern: /bg-blood/,
+			variants: ['hover', 'focus'],
+		},
+		{
+			pattern: /text-blood/,
+			variants: ['hover', 'focus'],
+		},
+		{
+			pattern: /border-blood/,
+			variants: ['hover', 'focus'],
+		},
+		{
+			pattern: /from-blood/,
+			variants: ['hover', 'focus'],
+		},
+		{
+			pattern: /to-blood/,
+			variants: ['hover', 'focus'],
+		},
+	]
 } satisfies Config;

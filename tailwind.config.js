@@ -17,5 +17,27 @@ export default {
       }
     },
   },
+  safelist: [
+    {
+      pattern: /bg-blood/,
+      variants: ['hover', 'focus'],
+    },
+    {
+      pattern: /text-blood/,
+      variants: ['hover', 'focus'],
+    },
+    {
+      pattern: /border-blood/,
+      variants: ['hover', 'focus'],
+    },
+    {
+      pattern: /from-blood/,
+      variants: ['hover', 'focus'],
+    },
+    {
+      pattern: /to-blood/,
+      variants: ['hover', 'focus'],
+    },
+  ],
   plugins: [],
 }
