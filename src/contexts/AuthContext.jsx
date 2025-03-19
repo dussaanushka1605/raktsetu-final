@@ -27,12 +27,18 @@ export const AuthProvider = ({ children }) => {
       const existingUser = allUsers.find(u => u.email === email);
       
       if (existingUser) {
-        // If user exists, log them in with their saved role
+        // If user exists, log them in with their saved role and profile data
         const mockUser = {
           id: existingUser.id,
           email: existingUser.email,
           name: existingUser.name,
-          role: existingUser.role
+          role: existingUser.role,
+          profile: existingUser.profile || {}, // Keep any existing profile data
+          bloodGroup: existingUser.bloodGroup,
+          location: existingUser.location,
+          gender: existingUser.gender,
+          phone: existingUser.phone,
+          isVerified: existingUser.isVerified || false
         };
         
         setUser(mockUser);
@@ -43,7 +49,9 @@ export const AuthProvider = ({ children }) => {
           id: Math.random().toString(36).substr(2, 9),
           email,
           name: email.split('@')[0],
-          role
+          role,
+          profile: {},
+          isVerified: false
         };
         
         setUser(mockUser);
@@ -68,7 +76,9 @@ export const AuthProvider = ({ children }) => {
         id: userId,
         email,
         name,
-        role
+        role,
+        profile: {},
+        isVerified: false
       };
       
       // Store the registered user in localStorage with a unique key
@@ -85,6 +95,29 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateUserProfile = (profileData) => {
+    if (!user) return;
+
+    const updatedUser = {
+      ...user,
+      ...profileData,
+      profile: {
+        ...(user.profile || {}),
+        ...(profileData.profile || {})
+      }
+    };
+
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+
+    // Also update in the registered_ entry
+    if (user.email) {
+      localStorage.setItem(`registered_${user.email}`, JSON.stringify(updatedUser));
+    }
+
+    return updatedUser;
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
@@ -94,9 +127,11 @@ export const AuthProvider = ({ children }) => {
     user,
     isAuthenticated: !!user,
     role: user?.role || null,
+    isVerified: user?.isVerified || false,
     login,
     register,
-    logout
+    logout,
+    updateUserProfile
   };
 
   if (isLoading) {
