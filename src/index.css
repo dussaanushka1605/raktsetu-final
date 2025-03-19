@@ -11,12 +11,6 @@
   --blood-hover: #be123c;
 }
 
-.dark {
-  --foreground: #f9fafb;
-  --background: #111827;
-  --muted: #9ca3af;
-}
-
 @layer base {
   body {
     @apply bg-background text-foreground;
@@ -25,12 +19,11 @@
 
 @layer components {
   .glass-card {
-    @apply rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800;
+    @apply rounded-lg border border-gray-200 bg-white shadow-sm;
   }
   
   .input-field {
-    @apply w-full rounded-md border border-gray-300 p-2 focus:border-blood focus:outline-none focus:ring-1 focus:ring-blood
-    dark:border-gray-600 dark:bg-gray-700 dark:text-white;
+    @apply w-full rounded-md border border-gray-300 p-2 focus:border-blood focus:outline-none focus:ring-1 focus:ring-blood;
   }
   
   .animate-reveal {
@@ -38,7 +31,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-br from-blood to-blood/70 bg-clip-text text-transparent dark:from-white dark:to-white/80;
+    @apply bg-gradient-to-br from-blood to-blood/70 bg-clip-text text-transparent;
   }
 }
 
@@ -53,11 +46,10 @@
   }
 }
 
-.dark .hero-section {
-  @apply bg-gray-900;
+.hero-section {
+  @apply bg-white;
 }
 
-.dark .section-bg {
-  @apply bg-gray-900;
+.section-bg {
+  @apply bg-white;
 }
-
